@@ -66,6 +66,60 @@ void append_new_data(){
     }
 }
 
+int is_code_unique(int code){
+    // This code will return 1 in case code exists in our chained data
+    // and 0 in case it doesn't.
+
+    if (start == NULL){
+        return 0;
+    }
+
+    link = start;
+    int exists = 0;
+    int i = 0;
+    
+    while (link->next != NULL){
+        link = link->next;
+        i++;
+    }
+
+    link = start;
+    for (int j = 0; j < i+1;j++){
+        if (link->code == code){
+            exists = 1;
+            break;
+        }
+    }
+    return exists;
+}
+
+int is_name_unique(char name[10]){
+    // This code will return 1 in case code exists in our chained data
+    // and 0 in case it doesn't.
+
+    if (start == NULL){
+        return 0;
+    }
+
+    link = start;
+    int exists = 0;
+    int i = 0;
+    
+    while (link->next != NULL){
+        link = link->next;
+        i++;
+    }
+
+    link = start;
+    for (int j = 0; j < i+1;j++){
+        if (strcmp(link->name, name) == 0){
+            exists = 1;
+            break;
+        }
+    }
+    return exists;
+}
+
 void print_all_data(){
     system("clear");
     if (start == NULL){
@@ -116,7 +170,7 @@ int main(){
         puts("");
         puts("0. Exit");
         puts("--------------------");
-        puts("Number: ");
+        printf("Number: ");
         scanf(" %c", &option);
         clear_stdin();
         if (option == '1'){
