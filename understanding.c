@@ -153,6 +153,81 @@ void print_all_data(){
     }
 }
 
+void search(){
+    system("clear");
+
+    if (start == NULL){
+        puts("List is empty!");
+        getchar();
+        return;
+    }
+
+    int code;
+    puts("Digite o código a ser pesquisado:");
+    scanf("%d", &code);
+    clear_stdin();
+
+    aux = start;
+
+    while (aux != NULL){
+        if (code == aux->code){
+            puts("Valor encontrado!");
+            printf("%d: %s", code, aux->name);
+            getchar();
+            break;
+            return;
+        }
+        aux = aux->next;
+    }
+}
+
+void delete(){
+    system("clear");
+
+    if (start == NULL){
+        puts("List is empty!");
+        getchar();
+        return;
+    }
+
+    int code;
+    puts("Digite o código a ser deletado:");
+    scanf("%d", &code);
+    clear_stdin();
+
+    link = start;
+    int exists = 0;
+
+    while (link != NULL){
+        if (code == link->code){
+            exists = 1;
+            break;
+        }
+        link = link->next;
+    }
+
+    if (exists == 1){
+        // update: turns out, one would ideally set the previous element to NULL after freeing the memory.
+
+        // if this is the last element anyway:
+        if (link->next == NULL && start != link){
+            free(link);
+        }
+        // if this is the very first (start is now the second element, whether or not it exists)
+        else if (link == start){
+            start = link->next;
+            free(link);
+        }
+        // if this block of information happens to be inbetween two other blocks...
+        else{
+            // find out tne index of the previous block, check if there's a next (logically there is, right?)
+            // then route the previous index to the later index
+            free(link);
+        }
+    }
+
+}
+
 int main(){
     link = NULL;
     aux = NULL;
@@ -167,6 +242,8 @@ int main(){
         puts("--------------------");
         puts("1. Add new data element");
         puts("2. Print all chained data");
+        puts("3. Search name by code");
+        puts("4. Delete struct by code");
         puts("");
         puts("0. Exit");
         puts("--------------------");
@@ -178,6 +255,12 @@ int main(){
         }
         else if (option == '2'){
             print_all_data();
+        }
+        else if (option == '3'){
+            search();
+        }
+        else if (option == '4'){
+            delete();
         }
         else{
             running = 0;
