@@ -12,7 +12,7 @@ typedef struct chain{
     struct chain *next;
 }chain;
 
-chain *link, *aux, *aux2, *start;
+chain *link, *aux, *start;
 
 void clear_stdin(){
     int c;
@@ -174,11 +174,12 @@ void search(){
             puts("Valor encontrado!");
             printf("%d: %s", code, aux->name);
             getchar();
-            break;
             return;
         }
         aux = aux->next;
     }
+    puts("Código não encontrado!");
+    getchar();
 }
 
 void delete(){
@@ -191,7 +192,7 @@ void delete(){
     }
 
     int code;
-    puts("Digite o código a ser deletado:");
+    puts("Type in code to be deleted:");
     scanf("%d", &code);
     clear_stdin();
 
@@ -231,7 +232,6 @@ void delete(){
 int main(){
     link = NULL;
     aux = NULL;
-    aux2 = NULL;
     start = NULL;
 
     int running = 1;
